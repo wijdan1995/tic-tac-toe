@@ -19,49 +19,96 @@ const play = function (event) {
     console.log(counter);
     counter++
     $(event.target).off('click');
-    checkWinner();
     turn();
+    checkWinner();
 }
 $('.box').on('click', play);
 
+const turn = function () {
+    if (counter % 2 === 1) {
+        $('.turn').text('Player X turn')
+    } else {
+        $('.turn').text('Player O turn')
+    }
+    if (counter > 9) {
+        $('.turn').text('Tie')
+    }
+}
 
 const checkWinner = function () {
+    let isWin = [false, ""];
     if (counter > 5) {
         if (boxs[0] === boxs[1] && boxs[1] === boxs[2] && boxs[0] !== "") {
-            console.log(boxs[0] + ' Win')
+            $('.turn').text('Player ' + boxs[0] + ' Wins')
+            console.log('Player ' + boxs[0] + ' Wins')
+            isWin[0] = true;
+            isWin[1] = boxs[0];
             $('.box').off('click')
         } else if (boxs[3] === boxs[4] && boxs[4] === boxs[5] && boxs[3] !== "") {
-            console.log(boxs[3] + ' Win')
+            $('.turn').text('Player ' + boxs[3] + ' Wins')
+            console.log('Player ' + boxs[3] + ' Wins')
+            isWin[0] = true;
+            isWin[1] = boxs[3];
             $('.box').off('click')
         } else if (boxs[6] === boxs[7] && boxs[7] === boxs[8] && boxs[6] !== "") {
-            console.log(boxs[6] + ' Win')
+            $('.turn').text('Player ' + boxs[6] + ' Wins')
+            console.log('Player ' + boxs[6] + ' Wins')
+            isWin[0] = true;
+            isWin[1] = boxs[6];
             $('.box').off('click')
         } else if (boxs[0] === boxs[3] && boxs[3] === boxs[6] && boxs[0] !== "") {
-            console.log(boxs[0] + ' Win')
+            $('.turn').text('Player ' + boxs[0] + ' Wins')
+            console.log('Player ' + boxs[0] + ' Wins')
+            isWin[0] = true;
+            isWin[1] = boxs[0];
             $('.box').off('click')
         } else if (boxs[1] === boxs[4] && boxs[4] === boxs[7] && boxs[1] !== "") {
-            console.log(boxs[1] + ' Win')
+            $('.turn').text('Player ' + boxs[1] + ' Wins')
+            console.log('Player ' + boxs[1] + ' Wins')
+            isWin[0] = true;
+            isWin[1] = boxs[1];
             $('.box').off('click')
         } else if (boxs[2] === boxs[5] && boxs[5] === boxs[8] && boxs[2] !== "") {
-            console.log(boxs[2] + ' Win')
+            $('.turn').text('Player ' + boxs[2] + ' Wins')
+            console.log('Player ' + boxs[2] + ' Wins')
+            isWin[0] = true;
+            isWin[1] = boxs[2];
             $('.box').off('click')
         } else if (boxs[0] === boxs[4] && boxs[4] === boxs[8] && boxs[0] !== "") {
-            console.log(boxs[0] + ' Win')
+            $('.turn').text('Player ' + boxs[0] + ' Wins')
+            console.log('Player ' + boxs[0] + ' Wins')
+            isWin[0] = true;
+            isWin[1] = boxs[0];
             $('.box').off('click')
         } else if (boxs[2] === boxs[4] && boxs[4] === boxs[6] && boxs[2] !== "") {
-            console.log(boxs[2] + ' Win')
+            $('.turn').text('Player ' + boxs[2] + ' Wins')
+            console.log('Player ' + boxs[2] + ' Wins')
+            isWin[0] = true;
+            isWin[1] = boxs[2];
             $('.box').off('click')
         }
     }
 
+    if (isWin[0]) {
+        swal({
+            title: "Good job! ",
+            text: "Player " + isWin[1] + " Wins!",
+            icon: "success",
+            button: "Close",
+        });
+    }
+
     if (counter > 9) {
+        $('.turn').text('Tie')
         console.log("Tie")
     }
 }
-const turn = function () {
-    if (counter % 2 === 1) {
-        $('p').text('Player X turn')
-    } else {
-        $('p').text('Player O turn')
-    }
+
+const reset = function (event) {
+    boxs = ['', '', '', '', '', '', '', '', ''];
+    counter = 1;
+    $('.box').text('');
+    $('.box').on('click', play);
+    $('.turn').text('Player X turn')
 }
+$('.button').on('click', reset);

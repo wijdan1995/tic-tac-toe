@@ -3,6 +3,7 @@ let playerX = 'X';
 let playerO = 'O';
 let counter = 1;
 const play = function (event) {
+    sound();
     // if the counter odd the player is X if even O
     if (counter % 2 === 1) {
         //take the position from the id
@@ -100,15 +101,26 @@ const checkWinner = function () {
 
     if (counter > 9) {
         $('.turn').text('Tie')
+        swal({
+            title: "Oops! ",
+            text: "Tie",
+            icon: "warning",
+            button: "Close",
+        });
         console.log("Tie")
     }
 }
 
-const reset = function (event) {
+const reset = function () {
     boxs = ['', '', '', '', '', '', '', '', ''];
     counter = 1;
     $('.box').text('');
     $('.box').on('click', play);
     $('.turn').text('Player X turn')
+    console.log('Reset to new game')
 }
 $('.button').on('click', reset);
+
+const sound = function () {
+    $('audio')[0].play();
+}

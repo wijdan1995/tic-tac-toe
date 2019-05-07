@@ -1,5 +1,6 @@
 body{
     width: 100%;
+    height: 100%;
     font-family: 'montserrat';
     display: flex;
     flex-direction: column;
@@ -17,8 +18,8 @@ h1{
     cursor: pointer;
 }
 .board{
-    height: 10em;
-    width: 10em;
+    height:60vh;
+    width:60vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -55,3 +56,36 @@ p{
     color:#afdbdf;
     margin-top: 18%;
 }
+section{
+    text-align: center;
+    background-color: #1d111f;
+    color: #afdbdf;
+    font-weight: 400;
+}
+@media (max-width: 450px ){
+    body{
+      width: 100%;
+      height: 100vh;
+    }
+    main{
+        width: 90%;
+    }
+    .board{
+        width: 100%;
+    }
+     
+   }
+   @media (min-height: 1000px ){
+    body{
+      width: 100%;
+      height: 100vh;
+      font-size:1.9em;
+    }
+    main{
+        width: 90%;
+    }
+    .board{
+        width: 100%;
+    }
+     
+   }

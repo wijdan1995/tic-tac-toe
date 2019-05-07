@@ -11,9 +11,11 @@
 </head>
 
 <body>
-    <audio src="sound/tone.mp3"></audio>
+    <audio class="click" src="sound/click.mp3"></audio>
+    <audio class="win" src="sound/win.mp3"></audio>
+    <audio class="tie" src="sound/tie.mp3"></audio>
     <header>
-        <h1>Tik Tac Toe</h1>
+        <h1>Tic Tac Toe</h1>
     </header>
     <main>
         <p class='turn'>Player X turn</p>
@@ -29,6 +31,10 @@
             <div id="8" class="box"></div>
         </div>
         <div class='button'>New Game</div>
+        <section>Scores Player X : <span class="x">0</span> |
+            Player O : <span class="o">0</span> |
+            Tie : <span class="t">0</span>
+        </section>
     </main>
     <footer>
         <p>Created with &hearts; by Wijdan Kuddah</p>

@@ -21,7 +21,7 @@
 10. Add AI player to play against by clicking `Play Against AI`.
 
 ## How I get the winner 
-    There are 8 possibilities to win if X or O create a line across the board it's a win, so I did a condition if the content of a line is matched and it's not empty it will be a win.
+There are 8 possibilities to win if X or O create a line across the board it's a win, so I did a condition if the content of a line is matched and it's not empty it will be a win.
 
 ## User stories
 * As a user, I should be able to click on a box to add X first and then O, and so on 

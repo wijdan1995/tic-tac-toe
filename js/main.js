@@ -9,6 +9,7 @@ let scoreT = 0;
 let isWin = [false, ""];
 
 const play = function (event) {
+    //play the sound with every click
     clickSound();
     // if the counter odd the player is X if even O
     if (counter % 2 === 1) {
@@ -25,10 +26,13 @@ const play = function (event) {
         console.log('Player O played');
     }
     console.log(counter);
+    // add 1 to the counter
     counter++
     //prevent choose the same spot twice
     $(event.target).off('click');
+    //check the counter
     turn();
+    //check the winner
     checkWinner();
 }
 $('.box').on('click', play);
@@ -40,18 +44,18 @@ const turn = function () {
     } else {
         $('.turn').text('Player O turn');
     }
-    //if all the boxs are full there will be a tie
-    if (counter > 9) {
-        $('.turn').text('Tie');
-    }
 }
 
 const checkWinner = function () {
+    //5 is min num of moves to get win
     if (counter > 5) {
+        //there are 8 possibilities to win 
         if (boxs[0] === boxs[1] && boxs[1] === boxs[2] && boxs[0] !== "") {
             $('.turn').text('Player ' + boxs[0] + ' Wins');
             console.log('Player ' + boxs[0] + ' Wins');
+            //if there is a match
             isWin[0] = true;
+            //store the winner
             isWin[1] = boxs[0];
             $('.box').off('click');
         } else if (boxs[3] === boxs[4] && boxs[4] === boxs[5] && boxs[3] !== "") {
@@ -98,17 +102,18 @@ const checkWinner = function () {
             $('.box').off('click');
         }
     }
-
+    //alert if there is a winner or tie
     if (isWin[0]) {
+        //win sound
         winSound();
+        //sweet alert code
         swal({
             title: "Good job! ",
             text: "Player " + isWin[1] + " Wins!",
             icon: "success",
             button: "Close",
         });
-        scores();
-
+        //if all the boxs are full there and none of the condition above happend will be a tie 
     } else if (counter > 9) {
         $('.turn').text('Tie');
         $('.t').text(++scoreT)
@@ -121,9 +126,12 @@ const checkWinner = function () {
         tieSound();
         console.log("Tie");
     }
+    //update the score
+    scores();
 }
 
 const reset = function () {
+    // reset all the stored info to its original state
     clickSound();
     boxs = ['', '', '', '', '', '', '', '', ''];
     counter = 1;
@@ -136,6 +144,7 @@ const reset = function () {
 }
 $('.button').on('click', reset);
 
+//sound effects
 const clickSound = function () {
     $('.click')[0].play();
 }
@@ -146,6 +155,7 @@ const tieSound = function () {
     $('.tie')[0].play();
 }
 
+// get the score and add 1 every time someone wins or tie
 const scores = function () {
     if (isWin[1] === playerX) {
         $('.x').text(++scoreX)

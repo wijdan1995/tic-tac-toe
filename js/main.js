@@ -25,6 +25,7 @@ const play = function (event) {
         $(event.target).text(playerO);
         console.log('Player O played');
     }
+    ai();
     console.log(counter);
     // add 1 to the counter
     counter++
@@ -37,6 +38,29 @@ const play = function (event) {
 }
 $('.box').on('click', play);
 
+//
+//
+const ai = function () {
+    const indexOfEmpty = boxs.findIndex(function (position) {
+        return position === ""
+    });
+    console.log(indexOfEmpty)
+    boxs[indexOfEmpty] = playerO
+    let idOfEmpty = '#' + indexOfEmpty
+    $(idOfEmpty).text(playerO);
+    $(idOfEmpty).off('click');
+    counter++
+    console.log('Player O played');
+    // new array of all the open positions
+    // [0, 1, 4, 8]
+    // use Math.rand to pick one of those
+    // add the computer to that psition
+
+
+
+}
+//
+//
 //to choose the player the odd nums for X and even nums for O
 const turn = function () {
     if (counter % 2 === 1) {

@@ -18,21 +18,22 @@ const play = function (event) {
         boxs[position] = playerX
         //change the text in the box with the player symbol
         $(event.target).text(playerX);
+        //to show who's turn now
+        $('.turn').text('Player X turn');
         console.log('Player X played');
     } else {
         const position = $(event.target).attr('id');
         boxs[position] = playerO
         $(event.target).text(playerO);
+        $('.turn').text('Player O turn');
         console.log('Player O played');
     }
-    ai();
+    // ai();
     console.log(counter);
     // add 1 to the counter
     counter++
     //prevent choose the same spot twice
     $(event.target).off('click');
-    //check the counter
-    turn();
     //check the winner
     checkWinner();
 }
@@ -52,7 +53,17 @@ const ai = function () {
     counter++
     console.log('Player O played');
     // new array of all the open positions
+    // let emptyBoxs = [];
+    // let indexOfAllEmpty = function () {
+
+    // }
+    // boxs.forEach(function () {
+
+    //     emptyBoxs.push()
+
+    // })
     // [0, 1, 4, 8]
+
     // use Math.rand to pick one of those
     // add the computer to that psition
 
@@ -60,15 +71,6 @@ const ai = function () {
 
 }
 //
-//
-//to choose the player the odd nums for X and even nums for O
-const turn = function () {
-    if (counter % 2 === 1) {
-        $('.turn').text('Player X turn');
-    } else {
-        $('.turn').text('Player O turn');
-    }
-}
 
 const checkWinner = function () {
     //5 is min num of moves to get win

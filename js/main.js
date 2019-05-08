@@ -7,12 +7,13 @@ let scoreX = 0;
 let scoreO = 0;
 let scoreT = 0;
 let isWin = [false, ""];
+let playerAi = false;
 
 const play = function (event) {
     //play the sound with every click
     clickSound();
     // if the counter odd the player is X if even O
-    if (counter % 2 === 1) {
+    if (playerAi == true && counter % 2 === 1) {
         //take the position from the id
         const position = $(event.target).attr('id');
         boxs[position] = playerX
@@ -21,14 +22,23 @@ const play = function (event) {
         //to show who's turn now
         $('.turn').text('Player X turn');
         console.log('Player X played');
-    } else {
+        ai();
+    } else if (playerAi == false && counter % 2 === 0) {
         const position = $(event.target).attr('id');
         boxs[position] = playerO
         $(event.target).text(playerO);
         $('.turn').text('Player O turn');
         console.log('Player O played');
+    } else if (playerAi == false && counter % 2 === 1) {
+        //take the position from the id
+        const position = $(event.target).attr('id');
+        boxs[position] = playerX
+        //change the text in the box with the player symbol
+        $(event.target).text(playerX);
+        //to show who's turn now
+        $('.turn').text('Player X turn');
+        console.log('Player X played');
     }
-    // ai();
     console.log(counter);
     // add 1 to the counter
     counter++
@@ -42,31 +52,33 @@ $('.box').on('click', play);
 //
 //
 const ai = function () {
-    const indexOfEmpty = boxs.findIndex(function (position) {
-        return position === ""
-    });
-    console.log(indexOfEmpty)
-    boxs[indexOfEmpty] = playerO
-    let idOfEmpty = '#' + indexOfEmpty
+    // const indexOfEmpty = boxs.findIndex(function (position) {
+    //     return position === ""
+    // });
+    // console.log(indexOfEmpty)
+    // boxs[indexOfEmpty] = playerO
+    // let idOfEmpty = '#' + indexOfEmpty
+    // $(idOfEmpty).text(playerO);
+    // $(idOfEmpty).off('click');
+    // counter++
+    // console.log('Player O played');
+    // new array of all the open positions
+    let emptyBoxs = [];
+    // [0, 1, 4, 8]
+    boxs.forEach(function (box, index) {
+        if (box === "") {
+            emptyBoxs.push(index)
+        }
+    })
+    // use Math.rand to pick one of those
+    let randomBox = emptyBoxs[Math.floor(Math.random() * emptyBoxs.length)];
+    // add the computer to that psition
+    boxs[randomBox] = playerO
+    let idOfEmpty = '#' + randomBox
     $(idOfEmpty).text(playerO);
     $(idOfEmpty).off('click');
     counter++
     console.log('Player O played');
-    // new array of all the open positions
-    // let emptyBoxs = [];
-    // let indexOfAllEmpty = function () {
-
-    // }
-    // boxs.forEach(function () {
-
-    //     emptyBoxs.push()
-
-    // })
-    // [0, 1, 4, 8]
-
-    // use Math.rand to pick one of those
-    // add the computer to that psition
-
 
 
 }
@@ -192,3 +204,31 @@ const scores = function () {
         console.log('playerO +1')
     }
 }
+//toggle to play against AI
+$('.ai').on('click', function (event) {
+    if (playerAi == false) {
+        playerAi = true
+        $('.ai').text('Play Against player')
+        reset();
+        scoreX = 0;
+        scoreO = 0;
+        scoreT = 0;
+        $('.x').text(scoreX);
+        $('.o').text(scoreO);
+        $('.t').text(scoreT);
+        console.log('play against Ai')
+    } else if (playerAi == true) {
+        playerAi = false
+        $('.ai').text('Play Against AI')
+        reset();
+        scoreX = 0;
+        scoreO = 0;
+        scoreT = 0;
+        $('.x').text(scoreX);
+        $('.o').text(scoreO);
+        $('.t').text(scoreT);
+        console.log('play against player')
+
+    }
+
+})

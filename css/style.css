@@ -17,6 +17,11 @@ h1{
     background: #afdbdf;
     cursor: pointer;
 }
+.ai{
+    text-align: center;
+    background: #afdbdf;
+    cursor: pointer;
+}
 .board{
     height:60vh;
     width:60vh;

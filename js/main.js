@@ -208,7 +208,7 @@ const scores = function () {
 $('.ai').on('click', function (event) {
     if (playerAi == false) {
         playerAi = true
-        $('.ai').text('Play Against player')
+        $('.ai').text('Play Against Player')
         reset();
         scoreX = 0;
         scoreO = 0;
@@ -216,7 +216,7 @@ $('.ai').on('click', function (event) {
         $('.x').text(scoreX);
         $('.o').text(scoreO);
         $('.t').text(scoreT);
-        console.log('play against Ai')
+        console.log('Play Against AI')
     } else if (playerAi == true) {
         playerAi = false
         $('.ai').text('Play Against AI')

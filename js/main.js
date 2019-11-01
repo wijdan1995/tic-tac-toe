@@ -13,7 +13,9 @@ const play = function (event) {
     //play the sound with every click
     clickSound();
     // if the counter odd the player is X if even O
-    if (playerAi == true && counter % 2 === 1) {
+    // if (playerAi == true && counter % 2 === 1) {
+    if (counter % 2 === 1) {
+
         //take the position from the id
         const position = $(event.target).attr('id');
         boxs[position] = playerX
@@ -22,23 +24,26 @@ const play = function (event) {
         //to show who's turn now
         $('.turn').text('Player X turn');
         console.log('Player X played');
-        ai();
+        if (playerAi === true) {
+            ai();
+        }
     } else if (playerAi == false && counter % 2 === 0) {
         const position = $(event.target).attr('id');
         boxs[position] = playerO
         $(event.target).text(playerO);
         $('.turn').text('Player O turn');
         console.log('Player O played');
-    } else if (playerAi == false && counter % 2 === 1) {
-        //take the position from the id
-        const position = $(event.target).attr('id');
-        boxs[position] = playerX
-        //change the text in the box with the player symbol
-        $(event.target).text(playerX);
-        //to show who's turn now
-        $('.turn').text('Player X turn');
-        console.log('Player X played');
     }
+    // } else if (playerAi == false && counter % 2 === 1) {
+    //     //take the position from the id
+    //     const position = $(event.target).attr('id');
+    //     boxs[position] = playerX
+    //     //change the text in the box with the player symbol
+    //     $(event.target).text(playerX);
+    //     //to show who's turn now
+    //     $('.turn').text('Player X turn');
+    //     console.log('Player X played');
+    // }
     console.log(counter);
     // add 1 to the counter
     counter++
@@ -49,8 +54,6 @@ const play = function (event) {
 }
 $('.box').on('click', play);
 
-//
-//
 const ai = function () {
     // const indexOfEmpty = boxs.findIndex(function (position) {
     //     return position === ""
@@ -82,20 +85,29 @@ const ai = function () {
 
 
 }
-//
 
+const displayWinner = function (num) {
+    $('.turn').text('Player ' + boxs[num] + ' Wins');
+    console.log('Player ' + boxs[num] + ' Wins');
+    //if there is a match
+    isWin[0] = true;
+    //store the winner
+    isWin[1] = boxs[num];
+    $('.box').off('click');
+}
 const checkWinner = function () {
     //5 is min num of moves to get win
     if (counter > 5) {
         //there are 8 possibilities to win 
         if (boxs[0] === boxs[1] && boxs[1] === boxs[2] && boxs[0] !== "") {
-            $('.turn').text('Player ' + boxs[0] + ' Wins');
-            console.log('Player ' + boxs[0] + ' Wins');
-            //if there is a match
-            isWin[0] = true;
-            //store the winner
-            isWin[1] = boxs[0];
-            $('.box').off('click');
+            displayWinner(0)
+            // $('.turn').text('Player ' + boxs[0] + ' Wins');
+            // console.log('Player ' + boxs[0] + ' Wins');
+            // //if there is a match
+            // isWin[0] = true;
+            // //store the winner
+            // isWin[1] = boxs[0];
+            // $('.box').off('click');
         } else if (boxs[3] === boxs[4] && boxs[4] === boxs[5] && boxs[3] !== "") {
             $('.turn').text('Player ' + boxs[3] + ' Wins');
             console.log('Player ' + boxs[3] + ' Wins');
@@ -193,6 +205,15 @@ const tieSound = function () {
     $('.tie')[0].play();
 }
 
+const totalReset = function () {
+    reset();
+    scoreX = 0;
+    scoreO = 0;
+    scoreT = 0;
+    $('.x').text(scoreX);
+    $('.o').text(scoreO);
+    $('.t').text(scoreT);
+}
 // get the score and add 1 every time someone wins or tie
 const scores = function () {
     if (isWin[1] === playerX) {
@@ -209,13 +230,14 @@ $('.ai').on('click', function (event) {
     if (playerAi == false) {
         playerAi = true
         $('.ai').text('Play Against Player')
-        reset();
-        scoreX = 0;
-        scoreO = 0;
-        scoreT = 0;
-        $('.x').text(scoreX);
-        $('.o').text(scoreO);
-        $('.t').text(scoreT);
+        totalReset()
+        // reset();
+        // scoreX = 0;
+        // scoreO = 0;
+        // scoreT = 0;
+        // $('.x').text(scoreX);
+        // $('.o').text(scoreO);
+        // $('.t').text(scoreT);
         console.log('Play Against AI')
     } else if (playerAi == true) {
         playerAi = false
